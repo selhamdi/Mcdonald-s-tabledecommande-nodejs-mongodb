@@ -1,0 +1,230 @@
+
+
+<br>
+<section>
+    <div class="dropdown" style="float: right;">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="texts_Langue"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            {{!-- <li><a class="dropdown-item active"></a></li> --}}
+            <li><a class="dropdown-item"  onclick="switch_langage('AR')"><span id="text_langue_AR">العربية</span></a></li>
+            <li><a class="dropdown-item" onclick="switch_langage('AN')"><span id="text_langue_AN">anglais</span></a></li>
+            <li><a class="dropdown-item" onclick="switch_langage('FR')"><span id="text_langue_FR">français</span></a></li>
+        </ul>
+    </div>
+</section>
+<br>
+
+<div class="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <img src="" alt="">
+                <th scope="col"><span id="text_image"></span></th>
+                <th scope="col"><span id="text_Name_prodact"></span></th>
+                <th scope="col"><span id="text_Name_contity"></span></th>
+                <th scope="col"><span id="text_prix"></span></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="body_table">
+            
+        </tbody>
+    </table>
+    
+
+    <div class="d-grid gap-2">
+        <a href="/paiement" class="btn btn-warning" id="text_paiement"></a>
+    </div>
+    <input type="hidden" name="">
+
+    
+</div>
+
+
+<script>
+
+    function onload_start(){
+        if (typeof(Storage) !== "undefined") {
+            // Retrieve
+            if(sessionStorage.getItem("langue") == "FR"){
+                document.getElementById("texts_Langue").innerHTML = "Langue";
+                document.getElementById("text_image").innerHTML = "image";
+                document.getElementById("text_Name_prodact").innerHTML = "nom du produit";
+                document.getElementById("text_Name_contity").innerHTML = "quantité";
+                document.getElementById("text_prix").innerHTML = "prix";
+                document.getElementById("text_paiement").innerHTML = "Paiement";
+                document.getElementById("text_navbar_panier").innerHTML = "panier : ";
+                document.getElementById("text_navbar_Langue").innerHTML = "Langue";
+                document.getElementById("text_navbar_Accueil").innerHTML = "Accueil / Tous";
+                switch_langage('FR');
+            }else if(sessionStorage.getItem("langue") == "AN"){
+                document.getElementById("texts_Langue").innerHTML = "Language";
+                document.getElementById("text_image").innerHTML = "picture";
+                document.getElementById("text_Name_prodact").innerHTML = "product name";
+                document.getElementById("text_Name_contity").innerHTML = "quantity";
+                document.getElementById("text_prix").innerHTML = "price";
+                document.getElementById("text_paiement").innerHTML = "Payment";
+                document.getElementById("text_navbar_panier").innerHTML = "basket : ";
+                document.getElementById("text_navbar_Langue").innerHTML = "Language";
+                document.getElementById("text_navbar_Accueil").innerHTML = "Home / All";
+                switch_langage('AN')
+            }else if(sessionStorage.getItem("langue") == "AR"){
+                //alert("menuAR");
+                //Result.value =menuAR;
+                //Result.innerHTML =menuAR;
+                document.getElementById("texts_Langue").innerHTML = "اللغة";
+                document.getElementById("text_image").innerHTML = "صورة";
+                document.getElementById("text_Name_prodact").innerHTML = "اسم المنتج";
+                document.getElementById("text_Name_contity").innerHTML = "الكمية";
+                document.getElementById("text_prix").innerHTML = "السعر";
+                document.getElementById("text_paiement").innerHTML = "الدفع";
+                document.getElementById("text_navbar_panier").innerHTML = "السلة : ";
+                document.getElementById("text_navbar_Langue").innerHTML = "اللغة";
+                document.getElementById("text_navbar_Accueil").innerHTML = "القائمة رئيسية / الكل";
+                switch_langage('AR')
+            }
+        } else {
+            alert("Sorry, your browser does not support Web Storage...");
+        }
+    }
+
+    function switch_langage(langue){
+        var langage = langue;
+        if (typeof(Storage) !== "undefined") {
+            // Retrieve
+            if(langage == "FR"){
+
+                document.getElementById("texts_Langue").innerHTML = "Langue";
+                document.getElementById("text_image").innerHTML = "image";
+                document.getElementById("text_Name_prodact").innerHTML = "nom du produit";
+                document.getElementById("text_Name_contity").innerHTML = "Quantité";
+                document.getElementById("text_prix").innerHTML = "prix";
+                document.getElementById("text_paiement").innerHTML = "Paiement";
+                document.getElementById("text_navbar_panier").innerHTML = "panier : ";
+                document.getElementById("text_navbar_Langue").innerHTML = "Langue";
+                document.getElementById("text_navbar_Accueil").innerHTML = "Accueil / Tous";
+                
+                var body_table = document.getElementById("body_table");
+
+                let old_data = JSON.parse(localStorage.getItem('data'));
+                var prixOneProdact = 0;
+                var prixProdactTotal = 0;
+
+                body_table.innerHTML = "";
+                for (i = 0; i < old_data.length; i++) {
+                    prixOneProdact = (old_data[i].prixData) * (old_data[i].contityData);
+                    prixProdactTotal = prixProdactTotal + prixOneProdact;
+                    body_table.innerHTML += '<tr><td><img src="/images/'+old_data[i].imgchemainData+'/../'+old_data[i].imgData+'" alt=""></td> <td>'+old_data[i].nameData+'  <br><input type="hidden" id="prixOneProdactData2'+i+'" value="'+old_data[i].prixData+'">   <p><span id="prixOneProdactData'+i+'" >'+old_data[i].prixData+'</span><span> DH </span></p></td> <td><input type="number" name="contityVal" id="contityVal'+i+'" placeholder="taper ure valuer" value="'+old_data[i].contityData+'" class="form-control">   </td> <td><p id="prixOneProdact'+i+'">'+prixOneProdact+'</p>  <input type="hidden" id="prixOneProdact2'+i+'" value="'+prixOneProdact+'"><td><input type="button" value="Calculez le total" onclick="updateval('+i+')" class="btn btn-outline-success Calcule_Total"></td></tr>';
+                    prixOneProdact = 0;
+                }
+                body_table.innerHTML += '<tr><p style="color:red;">Prix Total : <span id="prixtotal">'+prixProdactTotal+'</span> DH</p><input type="hidden" id="prixtotal2" value="'+prixProdactTotal+'"></tr>';
+
+                if(localStorage.getItem('PrixTotal') == null){
+                    
+                    localStorage.setItem("PrixTotal", prixProdactTotal);
+                }
+                sessionStorage.setItem("langue", "FR");
+            }else if(langage == "AN"){
+                document.getElementById("texts_Langue").innerHTML = "Language";
+                document.getElementById("text_image").innerHTML = "picture";
+                document.getElementById("text_Name_prodact").innerHTML = "product name";
+                document.getElementById("text_Name_contity").innerHTML = "Quantity";
+                document.getElementById("text_prix").innerHTML = "price";
+                document.getElementById("text_paiement").innerHTML = "Payment";
+                document.getElementById("text_navbar_panier").innerHTML = "basket : ";
+                document.getElementById("text_navbar_Langue").innerHTML = "Language";
+                document.getElementById("text_navbar_Accueil").innerHTML = "Home / All";
+
+                var body_table = document.getElementById("body_table");
+
+                let old_data = JSON.parse(localStorage.getItem('data'));
+                var prixOneProdact = 0;
+                var prixProdactTotal = 0;
+
+                body_table.innerHTML = "";
+                for (i = 0; i < old_data.length; i++) {
+                    prixOneProdact = (old_data[i].prixData) * (old_data[i].contityData);
+                    prixProdactTotal = prixProdactTotal + prixOneProdact;
+                    body_table.innerHTML += '<tr><td><img src="/images/'+old_data[i].imgchemainData+'/../'+old_data[i].imgData+'" alt=""></td> <td>'+old_data[i].nameDataAN+'  <br><input type="hidden" id="prixOneProdactData2'+i+'" value="'+old_data[i].prixData+'">   <p><span id="prixOneProdactData'+i+'" >'+old_data[i].prixData+'</span><span> DH </span></p></td> <td><input type="number" name="contityVal" id="contityVal'+i+'" placeholder="taper ure valuer" value="'+old_data[i].contityData+'" class="form-control">   </td> <td><p id="prixOneProdact'+i+'">'+prixOneProdact+'</p>  <input type="hidden" id="prixOneProdact2'+i+'" value="'+prixOneProdact+'"><td><input type="button" value="Calculate the total" onclick="updateval('+i+')" class="btn btn-outline-success Calcule_Total"></td></tr>';
+                    prixOneProdact = 0;
+                }
+                body_table.innerHTML += '<tr><p style="color:red;">Total price : <span id="prixtotal">'+prixProdactTotal+'</span> DH</p><input type="hidden" id="prixtotal2" value="'+prixProdactTotal+'"></tr>';
+
+                if(localStorage.getItem('PrixTotal') == null){
+                    
+                    localStorage.setItem("PrixTotal", prixProdactTotal);
+                }
+                sessionStorage.setItem("langue", "AN");
+            }else if(langage == "AR"){
+                document.getElementById("texts_Langue").innerHTML = "اللغة";
+                document.getElementById("text_image").innerHTML = "صورة";
+                document.getElementById("text_Name_prodact").innerHTML = "اسم المنتج";
+                document.getElementById("text_Name_contity").innerHTML = "الكمية";
+                document.getElementById("text_prix").innerHTML = "السعر";
+                document.getElementById("text_paiement").innerHTML = "الدفع";
+                document.getElementById("text_navbar_panier").innerHTML = "السلة : ";
+                document.getElementById("text_navbar_Langue").innerHTML = "اللغة";
+                document.getElementById("text_navbar_Accueil").innerHTML = "القائمة رئيسية / الكل";
+
+
+                var body_table = document.getElementById("body_table");
+
+                let old_data = JSON.parse(localStorage.getItem('data'));
+                var prixOneProdact = 0;
+                var prixProdactTotal = 0;
+
+                body_table.innerHTML = "";
+                for (i = 0; i < old_data.length; i++) {
+                    prixOneProdact = (old_data[i].prixData) * (old_data[i].contityData);
+                    prixProdactTotal = prixProdactTotal + prixOneProdact;
+                    body_table.innerHTML += '<tr><td><img src="/images/'+old_data[i].imgchemainData+'/../'+old_data[i].imgData+'" alt=""></td> <td>'+old_data[i].nameDataAR+'  <br><input type="hidden" id="prixOneProdactData2'+i+'" value="'+old_data[i].prixData+'">   <span id="prixOneProdactData'+i+'" >'+old_data[i].prixData+'</span><span> درهم</span></td> <td><input type="number" name="contityVal" id="contityVal'+i+'" placeholder="taper ure valuer" value="'+old_data[i].contityData+'" class="form-control">   </td> <td><p id="prixOneProdact'+i+'">'+prixOneProdact+'</p>  <input type="hidden" id="prixOneProdact2'+i+'" value="'+prixOneProdact+'"><td><input type="button" value="حساب المجموع" onclick="updateval('+i+')" class="btn btn-outline-success Calcule_Total"></td></tr>';
+                    prixOneProdact = 0;
+                }
+                body_table.innerHTML += '<tr><p style="color:red;"> <span>الثمن الاجمالي : </span><span id="prixtotal">'+prixProdactTotal+'</span> درهم</p><input type="hidden" id="prixtotal2" value="'+prixProdactTotal+'"></tr>';
+
+                if(localStorage.getItem('PrixTotal') == null){
+                    
+                    localStorage.setItem("PrixTotal", prixProdactTotal);
+                }
+                sessionStorage.setItem("langue", "AR");
+            }
+        } else {
+            alert("Sorry, your browser does not support Web Storage...");
+        }
+    }
+
+    function updateval(i){
+        var prixData = document.getElementById("prixOneProdactData2"+i).value;
+        var prixtotal = document.getElementById("prixtotal");
+        
+        var prixOneProdact = document.getElementById("prixOneProdact"+i);
+
+        var prixOneProdact2 = document.getElementById("prixOneProdact2"+i).value;
+        var prixtotal2 = document.getElementById("prixtotal2").value;
+
+        var i = i
+        var newVal = document.getElementById("contityVal"+i).value;
+
+        var prixProdactTotal = prixData * newVal;
+        prixOneProdact.innerHTML= ""+prixProdactTotal;
+
+        var updateTotalVal = 0;
+        updateTotalVal = prixtotal2 - prixOneProdact2;
+
+        updateTotalVal = updateTotalVal + prixProdactTotal;
+        prixtotal.innerHTML = updateTotalVal;
+
+
+        let old_data = JSON.parse(localStorage.getItem('data'));
+
+        old_data[i].contityData = newVal;
+        localStorage.setItem('data' , JSON.stringify(old_data));
+
+        localStorage.setItem("PrixTotal", updateTotalVal);
+
+    }
+
+</script>

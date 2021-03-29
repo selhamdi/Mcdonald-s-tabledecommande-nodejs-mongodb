@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.png">
+
+
+  <script src="https://kit.fontawesome.com/c2035ffa68.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="css/payment.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+
+
+
+<div class="container">
+  <div class="info">
+    <h1 >Total a payer : <span class="total"></span> DH </h1> 
+    <span></span>
+  </div>
+  <form class="modal">
+
+    <header class="header">
+      <div class="card-type">
+        <a class="card active" href="#">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/Amex.png"/>
+        </a>
+        <a class="card" href="#">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/Discover.png"/>
+        </a>
+        <a class="card" href="#">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/Visa.png"/>
+        </a>
+        <a class="card" href="#">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/MC.png"/>
+        </a>
+      </div>
+    </header>
+    <div class="content">
+    
+  
+      <div class="form" >
+     
+        <div class="form-row">
+          <div class="input-group">
+            <label>Cardholder Name</label>
+          
+            <input type="text"  id="Name" name="nom" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="input-group">
+            <label>Card Number </label>
+            <input type="text"  id="card_Number" name="card_Number" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="input-group">
+            <label>Expiry Date</label>
+            <input type="date"  id="dateExp" name="date_Exp" required>
+          </div>
+          <div class="input-group">
+            <label>CVS</label>
+            <input type="text" id="cvs" name="cvs" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+    <button class="button" id="pay" type="submit" >Complete Payment</button>
+      
+    </footer>
+
+
+
+
+
+
+
+
+
+  </form>
+</div>
+
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$('.card').on('click', function() {
+  $('.card').removeClass('active');
+  $(this).addClass('active');
+  $('.form').stop().slideUp();
+  $('.form').delay(300).slideDown();
+});
+
+
+
+
+
+</script>
+
+<script src="js/pyment.js"></script>
+
+
+
+
+</body>
+</html>

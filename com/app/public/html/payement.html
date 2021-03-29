@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<style>
+     {
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+}
+
+.main-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-around {
+  justify-content: space-around;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.flex-grow-0 {
+  flex-grow: 0;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.flex-shrink-1 {
+  flex-shrink: 1;
+}
+
+.d-none {
+  display: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.btn-inline {
+  display: inline-flex;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.upper-case {
+  text-transform: uppercase;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.dropdown .dropdown-btn {
+  padding: 12px;
+  border: 1px solid #cacaca;
+}
+.dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+.dropdown .show {
+  display: block;
+}
+.dropdown .dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: 4px;
+  content: "";
+  border-top: 5px solid;
+  border-right: 5px solid transparent;
+  border-bottom: 0;
+  border-left: 5px solid transparent;
+}
+.dropdown .dropdown-item {
+  padding: 5px;
+  display: block;
+  cursor: pointer;
+}
+.dropdown .dropdown-item:hover {
+  background-color: #d2e8fb;
+}
+
+body {
+  background-color: #d2e8fb;
+  font-family: "Roboto", sans-serif;
+}
+
+.card-main {
+  width: 100%;
+  max-width: 530px;
+  margin: 15px;
+}
+
+.payment-card {
+  max-width: 420px;
+  margin: 0 auto;
+  perspective: 900px;
+  text-shadow: 5px 5px 8px black;
+}
+
+.payment-card-inner {
+  width: 100%;
+  height: 265px;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card-head {
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-card-front, .payment-card-back {
+  padding: 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background-image: url("https://raw.githubusercontent.com/Arham11/interactive-credit-card/master/images/card.jpg");
+  background-size: cover;
+  box-shadow: 0 0 30px 7px rgba(21, 22, 59, 0.19);
+}
+
+.payment-card-front .card-chip img {
+  border-radius: 5px;
+}
+.payment-card-front .card-number {
+  max-height: 55px;
+  padding: 15px 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  display: flex;
+  transition: 0.5s ease;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.payment-card-front .card-number span {
+  font-size: 26px;
+}
+.payment-card-front .card-number span:last-child {
+  animation: numberAnimate 0.3s ease-out;
+}
+.payment-card-front .card-number span:nth-child(4), .payment-card-front .card-number span:nth-child(8), .payment-card-front .card-number span:nth-child(12) {
+  padding-right: 25px;
+}
+.payment-card-front .card-name-expiry {
+  display: flex;
+  justify-content: space-between;
+}
+.payment-card-front .card-name-details {
+  padding: 10px;
+  margin-right: 10px;
+  flex-grow: 1;
+  overflow: hidden;
+  border-radius: 5px;
+  transition: 0.5s ease-in-out;
+}
+.payment-card-front .ch-text {
+  padding-bottom: 10px;
+  font-size: 13px;
+  color: #cacaca;
+  font-weight: 500;
+}
+.payment-card-front .card-name {
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+.payment-card-front .card-name span:last-child {
+  animation: nameAnimate 0.3s ease-out;
+}
+.payment-card-front .date-anime span {
+  animation: dateAnimate 0.3s ease-out;
+  display: inline-block;
+  position: relative;
+}
+.payment-card-front .card-expiry {
+  width: 82px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+}
+.payment-card-front .expiry-text {
+  padding-bottom: 10px;
+  font-size: 13px;
+  color: #cacaca;
+  font-weight: 500;
+}
+.payment-card-front .expiry-date {
+  min-width: 80px;
+}
+
+.payment-card-back {
+  transform: rotateY(180deg);
+}
+
+.payment-card.flip .payment-card-inner {
+  transform: rotateY(-180deg);
+}
+
+.payment-card-back .black-strip {
+  height: 50px;
+  margin: 0 -15px 10px -15px;
+  background-color: #000;
+}
+.payment-card-back .label-cvv {
+  padding-bottom: 8px;
+  text-align: right;
+  font-weight: 500;
+  color: #fff;
+}
+.payment-card-back .cvv-input {
+  height: 42px;
+  padding: 13px;
+  margin-bottom: 25px;
+  display: block;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+  background-color: #fff;
+  text-align: right;
+  text-shadow: none;
+}
+
+.payment-details {
+  margin-top: -90px;
+  padding: 140px 25px 25px;
+  -webkit-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.payment-details .expire-cvv {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.payment-details .cvv {
+  padding-bottom: 12px;
+}
+.payment-details .expire-dropdowns {
+  padding-bottom: 12px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.payment-details .label-text {
+  font-size: 15px;
+  padding-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+.payment-details .input-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.payment-details .input-group input:focus {
+  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.2);
+}
+.payment-details .form-control {
+  padding: 12px;
+  display: block;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+}
+
+.card-brands .master-card {
+  max-width: 45px;
+}
+
+.card-brands .discover {
+  max-width: 90px;
+}
+
+.card-brands .visa {
+  max-width: 90px;
+}
+
+.brandsAnimate {
+  animation: brandsAnimate 0.6s ease;
+  position: relative;
+}
+
+.expire-dropdowns select {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #cacaca;
+}
+.expire-dropdowns option {
+  background-color: #f2f0f0;
+  color: #333;
+}
+.expire-dropdowns .dropdown {
+  margin-right: 15px;
+}
+
+.cvv input {
+  max-width: 100px;
+}
+
+@keyframes nameAnimate {
+  0% {
+    margin-left: 4px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+@keyframes numberAnimate {
+  0% {
+    margin-top: 13px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+@keyframes dateAnimate {
+  0% {
+    top: 10px;
+  }
+  100% {
+    top: 0;
+  }
+}
+@keyframes brandsAnimate {
+  0% {
+    top: 20px;
+  }
+  100% {
+    top: 0;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .card-main {
+    margin-top: 40px;
+  }
+
+  .payment-card {
+    max-width: 100%;
+  }
+
+  .card-head {
+    padding-bottom: 5px;
+  }
+
+  .payment-card-inner {
+    height: 200px;
+  }
+
+  .payment-card-front .card-name {
+    font-size: 13px;
+  }
+  .payment-card-front .card-number {
+    margin-bottom: 5px;
+  }
+  .payment-card-front .card-number span {
+    font-size: 22px;
+  }
+  .payment-card-front .expiry-date {
+    font-size: 13px;
+  }
+  .payment-card-front .card-number span:nth-child(4), .payment-card-front .card-number span:nth-child(8), .payment-card-front .card-number span:nth-child(12) {
+    padding-right: 12px;
+  }
+
+  .main-container {
+    align-items: flex-start;
+  }
+
+  .payment-details {
+    padding: 120px 20px 15px;
+  }
+}
+@media only screen and (max-width: 345px) {
+  .payment-card-front .card-name {
+    font-size: 12px;
+  }
+  .payment-card-front .card-number span {
+    font-size: 20px;
+  }
+  .payment-card-front .expiry-date {
+    font-size: 12px;
+  }
+}
+</style>
+
+<body>
+    <div id="mcdonalds">
+        <div class="monitor">
+            <div style="    background-color: #D52B1E;height: 900px;">
+                <img src="../image/logo.png" alt="" style=" height: 311px; margin-left: 38%;margin-top: 2%;">
+                
+    <div class="main-container">
+        <div class="card-main">
+            <div class="payment-card">
+                <div class="payment-card-inner">
+                    <div class="payment-card-front">
+                        <div class="card-head">
+                            <div class="card-chip">
+                                <img src="https://raw.githubusercontent.com/Arham11/interactive-credit-card/master/images/tag.png">
+                            </div>
+                            <div class="transition-effect card-brands">
+                                <img class="visa" src="https://raw.githubusercontent.com/Arham11/interactive-credit-card/master/images/visa.png">
+                                <img class="d-none master-card" src="https://raw.githubusercontent.com/Arham11/interactive-credit-card/master/images/mastercard.png">
+                                <img class="d-none discover" src="https://raw.githubusercontent.com/Arham11/interactive-credit-card/master/images/discover.png">
+
+                            </div>
+                        </div>
+                        <span class="d-none" id="numHide"></span>
+                        <div class="card-number" id="CardImgNum" focusing-attr="focusNumber">
+                            <span>#</span><span>#</span><span>#</span><span>#</span>
+                            <span>#</span><span>#</span><span>#</span><span>#</span>
+                            <span>#</span><span>#</span><span>#</span><span>#</span>
+                            <span>#</span><span>#</span><span>#</span><span>#</span>
+                        </div>
+                        <div class="card-name-expiry">
+                            <div class="card-name-details" focusing-attr="focusName">
+                                <div class="ch-text">Card Holder</div>
+                                <span class="d-none" id="nameHide"></span>
+                                <div class="card-name transition-effect upper-case" id="cardImgName">
+                                    <span>Enter Full Name</span>
+                                </div>
+                            </div>
+                            <div class="card-expiry" focusing-attr="focusDate">
+                                <div class="expiry-text">Expires</div>
+                                <div class="expiry-date">
+                                    <span class="date-anime mm" id="mm">MM</span>
+                                    /
+                                    <span class="date-anime yy" id="yy">YY</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-card-back">
+                        <div class="black-strip"></div>
+                        <div class="input-group">
+                            <div class="label-cvv">CVV</div>
+                            <div class="cvv-input"></div>
+                        </div>
+                        <div class="transition-effect card-brands text-right">
+                             <img class="visa" src="https://raw.githubusercontent.com/Arham11/interactive-credit-card/master/images/visa.png">
+                                <img class="d-none master-card" src="https://raw.githubusercontent.com/Arham11/interactive-credit-card/master/images/mastercard.png">
+                                <img class="d-none discover" src="https://raw.githubusercontent.com/Arham11/interactive-credit-card/master/images/discover.png">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-details">
+                <div class="input-group">
+                    <div class="label-text">Card Number</div>
+                    <input type="number" class="form-control number" focus-attr="focusNumber"
+                        onKeyPress="if(this.value.length==16) return false;">
+                </div>
+                <div class="input-group">
+                    <div class="label-text">Card Name</div>
+                    <input type="text" class="form-control upper-case" focus-attr="focusName" id="cardName">
+                </div>
+                <div class="expire-cvv">
+                    <div class="expire-dropdowns">
+                        <div class="label-text">Expiration Date</div>
+                        <div class="d-flex flex-grow-1">
+                            <div class="dropdown btn-inline flex-grow-1">
+                                <select id="month" focus-attr="focusDate">
+                                    <option value="Month" selected="">Month</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                            <div class="dropdown btn-inline flex-grow-1">
+                                <select id="year" focus-attr="focusDate">
+                                    <option value="Year" selected="">Year</option>
+                                    <option value="15">2015</option>
+                                    <option value="16">2016</option>
+                                    <option value="17">2017</option>
+                                    <option value="18">2018</option>
+                                    <option value="19">2019</option>
+                                    <option value="20">2020</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cvv">
+                        <div class="label-text">CVV</div>
+                        <input type="number" class="form-control cvv-number" id="cvvNumber"
+                            onKeyPress="if(this.value.length==4) return false;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                <!-- <div class="morph" style="margin-top: 4%;">
+                    <a href="../html/menu.html"><img src="../image/carte.jpg" alt=""
+                            style="margin-left: 147px;width: 20%;height: 300px;"></a>
+                    <img src="../image/téléchargement (1).jpg" alt=""
+                        style="margin-left: 793px;margin-top: 59px;width: 19%;height: 290px;">
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+    <script src="">
+        document.addEventListener('DOMContentLoaded', function () {
+
+var focusParent = document.querySelectorAll("[focus-attr]")
+var focusChild = document.querySelectorAll("[focusing-attr]")
+focusParent.forEach(item => {
+    item.addEventListener("focusin", function (e) {
+        let trueFFocus = e.target.getAttribute("focus-attr")
+        let Element = "[focusing-attr=" + trueFFocus + "]"
+        document.querySelector(Element).style.boxShadow = "0 0 7px 2px rgba(255, 255, 255, 0.9)";
+    });
+
+    item.addEventListener("focusout", function (e) {
+        let falseFocus = document.querySelectorAll("[focusing-attr]")
+        falseFocus.forEach(e => {
+            e.style.boxShadow = "none";
+        })
+    });
+})
+
+
+//payement card flip and animation
+var paymentCard = document.querySelector(".payment-card");
+document.querySelector(".cvv-number").addEventListener("focusin", flipCardBack);
+document.querySelector(".cvv-number").addEventListener("focusout", flipCardFront);
+function flipCardBack() {
+    paymentCard.classList.add("flip");
+}
+function flipCardFront() {
+    paymentCard.classList.remove("flip");
+}
+
+
+//Card Number animation
+var cardNumber = document.querySelector("#CardImgNum");
+var inputNumber = document.querySelector("input.number");
+inputNumber.addEventListener("input", function (e) {
+    if (inputNumber.value.length == 0) {
+        document.getElementById('numHide').innerHTML = '################';
+    }
+    else {
+        document.querySelector('#numHide').innerHTML = this.value;
+    }
+    let a = document.querySelectorAll(".card-no-Item span")
+        let numHide = document.getElementById("numHide");
+        strNum = numHide.innerText.split("");
+        strNum.forEach(function (e, i) {
+            if (i >= 4 && i < 12) {
+                strNum[i] = "<span>#</span>"
+            }
+            else {
+                strNum[i] = "<span>" + e + "</span>"
+            }
+        })
+        strNum = strNum.join("");
+        document.getElementById("CardImgNum").innerHTML = strNum;
+})
+//check card brand
+function checkCard(cardType){
+    let brands= document.querySelectorAll(".card-brands img");
+    brands.forEach(function(e){
+        e.classList.add("d-none")
+        e.classList.remove("brandsAnimate")
+        if(cardType=="5"){
+            var masterCard = document.querySelectorAll(".master-card")
+            masterCard.forEach(item=>{
+                 item.classList.remove("d-none");
+                 item.classList.add("brandsAnimate");
+            })
+        }
+        else if(cardType=="6"){
+            var discover = document.querySelectorAll(".discover")
+            discover.forEach(item=>{
+                 item.classList.remove("d-none");
+                 item.classList.add("brandsAnimate");
+            })  
+        }
+        else{
+            var visa = document.querySelectorAll(".visa")
+            visa.forEach(item=>{
+                 item.classList.remove("d-none");
+                 item.classList.add("brandsAnimate");
+            })  
+        }
+    })
+    
+}
+
+//cvv number
+cvvNumber = document.getElementById("cvvNumber");
+cvvNumber.addEventListener('input', function (e) {
+    document.querySelector('.cvv-input').innerHTML = this.value;
+})
+
+//Card Name and animation
+cardName.addEventListener('input', function () {
+    if (cardName.value.length == 0) {
+        document.getElementById('nameHide').innerHTML = 'Enter Full Name';
+    }
+    else {
+        document.getElementById('nameHide').innerHTML = this.value;
+    }
+    let nameHide = document.getElementById("nameHide");
+    let strName = nameHide.innerText.split("")
+    strName.forEach(function (e, i) {
+        strName[i] = "<span>" + e + "</span>"
+    })
+    strName = strName.join("");
+    document.getElementById("cardImgName").innerHTML = strName;
+});
+
+//select Card Expiry month/date
+var selMonth = document.getElementById("month")
+var selYear = document.getElementById("year")
+selMonth.addEventListener("change", function (e) {
+    document.getElementById("mm").innerHTML = "<span>" + this.value + "</span>";
+})
+selYear.addEventListener("change", function (e) {
+    document.getElementById("yy").innerHTML = "<span>" + this.value + "</span>";
+})
+
+
+}, false);
+
+    </script>
+</body>
+
+</html>

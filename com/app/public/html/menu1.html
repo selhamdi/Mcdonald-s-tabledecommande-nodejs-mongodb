@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+    integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+    integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+    integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+    integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <!-- <script src="https://fonts.googleapis.com/css?family=Roboto+Condensed"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div id="mcdonalds">
+    <div class="monitor">
+      <div style="
+            height: 900px;">
+        <img src="../image/logo.png" alt="" style=" 
+                  height: 155px;
+                   margin-left: 42%;
+                   margin-top: 2%;">
+
+        <div class="row">
+          <div class="column" style=" width: 15%;">
+            <div id='tbody'>
+
+            </div>
+          </div>
+          <div class="column" style="width: 10%;">
+            <div id="sous_categorie">
+
+            </div>
+          </div>
+
+          <div class="column" style="width:60%">
+            <div class="container">
+              <div id="boxes">
+              </div>
+            </div>
+          </div>
+          <div class="column" style="width: 10%;">
+            <div class="button">
+              <button><span>Click Me</span></button>
+            </div>
+
+            <div class="pop-up">
+              <div class="content">
+                <div class="container">               
+                      <div id="sup" style="display: flex;">
+
+                      </div> 
+                  <span class="close">close</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+ 
+ </div>
+  </div>
+  </div>
+  <script>
+    $('button').click(function () {
+      $('.pop-up').addClass('open');
+    });
+
+    $('.pop-up .close').click(function () {
+      $('.pop-up').removeClass('open');
+    });
+  </script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+
+
+    axios.get('http://localhost:4000/categorie')
+      .then(function (response) {
+        var tbody = document.getElementById("tbody");
+        var child = '';
+        response.data.forEach(element => {
+          child += "<a href='./menu.html?_id=" + element._id + "'><h4 class='m-b-0 font-16'>" + element.categorie_name + "</h4></a>";
+
+        });
+        tbody.innerHTML = child;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
+
+    const query = window.location.search;
+    const url = new URLSearchParams(query);
+    const _id = url.get('_id');
+    console.log(_id);
+    axios.get(`http://localhost:4000/sous_categorie/sous_categorie/${_id}`)
+      .then(function (response) {
+        var tbody = document.getElementById("sous_categorie");
+        console.log(response)
+        var child = '';
+        response.data.forEach(element => {
+          child += '<tr>';
+          child += '<td>';
+          child += "<div class='d-flex align-items-center'>";
+          child += "<div>";
+          child += "<button><h4 class='m-b-0 font-16'>" + element.sous_categorie_name + "</h4></button>"; child += "</div>";
+          child += "</div>";
+          child += "</td>";
+        });
+        tbody.innerHTML = child;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
+      axios.get(`http://localhost:4000/product/${_id}`)
+        .then(function (response) {
+          var tbody = document.getElementById("boxes");
+          var child = '';
+          response.data.forEach(element => {
+            child += "<div class='box'>";
+            child += "<div class='box--inner'>";
+            child += "<img src='../image/aa.jpg'  style='width: 100%;height: 180px'>";
+            child += "<h4 class='m-b-0 font-16'>" + element.product_name + "</h4>";
+            child += "  <input type='checkbox'>";
+            child += "</div>"
+            child += "</div>";
+          });
+          tbody.innerHTML = child;
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    axios.get('http://localhost:4000/sup')
+        .then(function (response) {
+          var tbody = document.getElementById("sup");
+          var child = '';
+          response.data.forEach(element => {
+            child += "<div class='box'>";
+            child += "<div class='box--inner'>";
+            child += "<img src='../image/Hawai.jpg'  style='width: 100%;height: 180px'>";
+            child += "<h4 class='m-b-0 font-16'>" + element.nomSupp + "</h4>";
+            child += "  <input type='checkbox'>";
+            child += "</div>"
+            child += "</div>";
+          });
+          tbody.innerHTML = child;
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+
+  </script>
+</body>
+
+</html>

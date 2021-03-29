@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<script>
+    var urlString = window.location.search;
+    var urlParam = new URLSearchParams(urlString);
+    var language = urlParam.get('lang');
+    console.log(language)
+</script>
+<body>
+    <div id="mcdonalds">
+        <div class="monitor">
+            <div style="    background-color: #D52B1E;
+            height: 900px;">
+                <img src="../image/logo.png" alt="" style="    width: 39%;
+                height: 385px;
+                margin-left: 29%;
+                margin-top: 2%;;">
+
+                <div>
+                    <p id="demo"></p>
+                    <button class="button" style="vertical-align:middle"><a href="./eat.html?lang=fr"><span>FR</span></a></button>
+                    <button class="button" style="vertical-align:middle"><a href="./eat.html?lang=ar"></a><span>AR </span></button>
+                    <button class="button" style="vertical-align:middle"><a href="./eat.html?lang=an"></a><span>EN</span></button>
+                  
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="translate.js"></script>
+</body>
+</html>

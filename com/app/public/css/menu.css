@@ -1,0 +1,206 @@
+.monitor {
+  height: 970px;
+  width: 100%;
+    border: 30px solid #000;
+    border-radius: 20px;
+    float: left;
+    position: relative;
+}
+.pop-up {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) scale(0.9);
+  -moz-transform: translate(-50%, -50%) scale(0.9);
+  -ms-transform: translate(-50%, -50%) scale(0.9);
+  -o-transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, -50%) scale(0.9);
+  overflow-y: auto;
+  box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.4);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  z-index: 10;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+}
+@media (min-width: 768px) {
+  .pop-up {
+    width: calc(100% - 40px);
+    height: auto;
+    max-width: 900px;
+  }
+}
+.pop-up .content {
+  width: 100%;
+  max-width: 900px;
+  height: 51pc;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+}
+@media (min-width: 768px) {
+  .pop-up .content {
+    min-height: inherit;
+  }
+}
+.pop-up .content .container {
+  padding: 100px 20px 140px;
+}
+@media (min-width: 568px) {
+  .pop-up .content .container {
+    padding: 50px 20px 80px;
+  }
+}
+@media (min-width: 768px) {
+  .pop-up .content .container {
+    padding: 70px 0px 90px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+}
+.pop-up .content .close {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1.1rem;
+  letter-spacing: 0.05rem;
+  color: #3e4146;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+.pop-up .content .close:hover {
+  cursor: pointer;
+  color: #f66867;
+}
+
+.pop-up.open {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -o-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+      @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+
+      * {
+          box-sizing: border-box;
+      }
+
+      /* Create three equal columns that floats next to each other */
+      .column {
+          float: left;
+          width: 33.33%;
+          padding: 10px;
+          height: 300px;
+          /* Should be removed. Only for demonstration */
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+          content: "";
+          display: table;
+          clear: both;
+      }
+
+      body {
+          overflow-x: hidden;
+          font-family: 'Roboto', sans-serif;
+          font-size: 16px;
+      }
+
+      li {
+          list-style-type: none;
+      }
+
+      /* Toggle Styles */
+
+      #viewport {
+          padding-left: 250px;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+      }
+
+      #content {
+          width: 100%;
+          position: relative;
+          margin-right: 0;
+      }
+
+      #sidebar2 {
+          margin-top: 2%;
+          z-index: 1000;
+          /* position: fixed; */
+          left: 550px;
+          width: 301px;
+          height: 100%;
+          margin-left: -205px;
+          overflow-y: auto;
+      }
+
+      /* Sidebar Styles */
+
+      #sidebar {
+          margin-top: 169%;
+                      z-index: 1000;
+          /* position: fixed; */
+          left: 250px;
+          width: 300px;
+          height: 724px;
+           margin-left: -211px;
+          overflow-y: auto;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+      }
+
+      #sidebar header {
+          margin-top: 3%;
+          font-size: 20px;
+          line-height: 52px;
+          text-align: center;
+      }
+
+      #sidebar header a {
+          color: #fff;
+          display: block;
+          text-decoration: none;
+
+      }
+
+      #sidebar header a:hover {
+          color: #fff;
+      }
+
+
+
+      #sidebar .nav a {
+          text-decoration: none;
+          background: none;
+          color: black;
+          font-size: 14px;
+          padding: 16px 24px;
+
+      }
+
+      #sidebar .nav a:hover {
+          background: none;
+          color: #ECEFF1;
+      }
+
+      #sidebar .nav a i {
+          margin-right: 16px;
+      }
