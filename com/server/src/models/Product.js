@@ -21,6 +21,10 @@ const productSchema = new mongoose.Schema({
     create_at:{
         type:Date,
         default:Date.now
+    },
+    pointF:{
+        type:Number,
+        default:10,
     }
 });
 

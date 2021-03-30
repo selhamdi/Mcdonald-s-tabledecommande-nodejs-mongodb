@@ -12,20 +12,23 @@ function onload_start(){
         let old_data = JSON.parse(localStorage.getItem('data'));
         var prixOneProdact = 0;
         var prixProdactTotal = 0;
+        var PointFTotal = 0;
 
         body_table.innerHTML = "";
         for (i = 0; i < old_data.length; i++) {
             prixOneProdact = parseFloat(old_data[i].contityData);
             prixProdactTotal = prixProdactTotal + prixOneProdact;
+            PointFTotal +=10;
             body_table.innerHTML += '<tr class="print-product" ><td style="display: flex;"><img src="../image/tacos.jpg" style="width: 26%;"><p style="font-size: 28px; margin: 56px 115px;">'+old_data[i].nameData+'</p></td><td><p  style="font-size: 30px;"><span id="prixOneProdactData'+i+'" >'+old_data[i].contityData+'</span><span> DH </span></p></td></tr>';
             prixOneProdact = 0;
             console.log('old_data[i].nameData : '+old_data[i].nameData);
             console.log('old_data[i].contityData : '+old_data[i].contityData);
         }
-       
+        console.log(PointFTotal);
+        body_table.innerHTML +=' <h3>Votre Point de fidélité est : '+PointFTotal+' Points </h3>'
         body_table.innerHTML +='<div class="subtotal cf"><ul><li class="totalRow final "><span class="label ">Total</span><span class="value" id="Total">'+prixProdactTotal+'DH </span></li><h1 id="PrixAfter"></h1><li class="totalRow"><a href="#" class="btn continue" Checkout></a></li></ul></div>';
         body_table.innerHTML += '<div class="promoCode"><label for="promo">Have A Promo Code?</label><input id="CodeP" type="text" name="promo" placholder="Enter Code" /><a href="#" onclick="SubCodeP();" class="btn"></a></div </div>';
-    
+       
 
         if(localStorage.getItem('PrixTotal') == null){
             
@@ -57,6 +60,7 @@ function onload_start(){
 
 //Code Promo 
 
+
 // function pour  total - codepromo
 function  SubCodeP(){
     prixProdactTotal= localStorage.getItem('PrixTotal');
@@ -74,6 +78,11 @@ function  SubCodeP(){
     }
     })
 }
+
+
+
+
+
 
 
 
